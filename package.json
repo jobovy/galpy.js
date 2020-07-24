@@ -1,5 +1,5 @@
 {
-  "name": "galpy",
+  "name": "@jobovy/galpy",
   "version": "0.0.1",
   "description": "galpy, in Javascript",
   "main": "dist/galpy.js",
@@ -13,7 +13,15 @@
     "docs": "jsdoc -r src"
   },
   "author": "Jo Bovy",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jobovy/galpy.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jobovy/galpy.js/issues"
+  },
+  "homepage": "https://github.com/jobovy/galpy.js#readme",
   "devDependencies": {
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.10.5",
