@@ -6,7 +6,7 @@
   "scripts": {
     "develop": "webpack --mode development",
     "build": "webpack --mode production",
-    "test": "mocha",
+    "test": "mocha --require @babel/register",
     "coverage": "cross-env NODE_ENV=test nyc --reporter=text mocha --require @babel/register",
     "coverage-html": "cross-env NODE_ENV=test nyc --reporter=html mocha --require @babel/register",
     "coverage-lcov": "cross-env NODE_ENV=test nyc --reporter=text --reporter=lcovonly mocha --require @babel/register",
