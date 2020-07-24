@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - runL npm install -g codecov
+      - run: npm install -g codecov
       - run: npm install
       - run: npm run coverage-lcov
       - run: codecov
