@@ -1,6 +1,6 @@
 {
   "name": "@jobovy/galpy",
-  "version": "0.0.1",
+  "version": "0.0.1.dev0",
   "description": "galpy, in Javascript",
   "main": "dist/galpy.js",
   "scripts": {
