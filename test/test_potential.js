@@ -6,31 +6,48 @@ let assert = chai.assert;
 
 import { potential } from '../src/index'
 
-let mp= new potential.MiyamotoNagaiPotential();
-describe(`${mp.constructor.name} potential`, function () {
+/*
+ * Test that derivatives of the potential agree with numerical 
+ * derivatives
+ */
+let pots= [
+    new potential.MiyamotoNagaiPotential(),
+    new potential.IsochronePotential()
+];
+let default_tol= 1e-8
+let special_tol= {
+    'IsochronePotential': 1e-7
+}
+
+pots.forEach(pot => {
+describe(`${pot.constructor.name} potential`, function () {
     let RphiZt= [1.2,0.3,-0.4,0.];
     let [R,phi,Z,t]= RphiZt;
+    let tol= (`${pot.constructor.name}` in special_tol)
+	? special_tol[`${pot.constructor.name}`]
+	: default_tol;
     it('Rforce = minus d Pot / d R', function () {
-	assert.isBelow(Math.abs(potential.Rforce(mp,R,Z,phi,t)
-				+pot_gradient(potential.call,mp,
+	assert.isBelow(Math.abs(potential.Rforce(pot,R,Z,phi,t)
+				+pot_gradient(potential.call,pot,
 					      RphiZt,1e-8,0)),
-		       1e-8,
-		       `${mp.constructor.name} Rforce is not the derivative of the potential wrt R`);
+		       tol,
+		       `${pot.constructor.name} Rforce is not the derivative of the potential wrt R`);
     });
     it('phiforce = minus d Pot / d phi', function () {
-	assert.isBelow(Math.abs(potential.phiforce(mp,R,Z,phi,t)
-				+pot_gradient(potential.call,mp,
+	assert.isBelow(Math.abs(potential.phiforce(pot,R,Z,phi,t)
+				+pot_gradient(potential.call,pot,
 					      RphiZt,1e-8,1)),
-		       1e-8,
-		       `${mp.constructor.name} phiforce is not the derivative of the potential wrt phi`);
+		       tol,
+		       `${pot.constructor.name} phiforce is not the derivative of the potential wrt phi`);
     });
     it('zforce = minus d Pot / d z', function () {
-	assert.isBelow(Math.abs(potential.zforce(mp,R,Z,phi,t)
-				+pot_gradient(potential.call,mp,
+	assert.isBelow(Math.abs(potential.zforce(pot,R,Z,phi,t)
+				+pot_gradient(potential.call,pot,
 					      RphiZt,1e-8,2)),
-		       1e-8,
-		       `${mp.constructor.name} zforce is not the derivative of the potential wrt z`);
+		       tol,
+		       `${pot.constructor.name} zforce is not the derivative of the potential wrt z`);
     });
+});
 });
 
 /*
