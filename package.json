@@ -1,0 +1,31 @@
+{
+  "name": "galpy",
+  "version": "0.0.1",
+  "description": "galpy, in Javascript",
+  "main": "dist/galpy.js",
+  "scripts": {
+    "develop": "webpack --mode development",
+    "build": "webpack --mode production",
+    "test": "mocha",
+    "coverage": "cross-env NODE_ENV=test nyc --reporter=text mocha --require @babel/register",
+    "coverage-html": "cross-env NODE_ENV=test nyc --reporter=html mocha --require @babel/register",
+    "coverage-lcov": "cross-env NODE_ENV=test nyc --reporter=lcovonly mocha --require @babel/register",
+    "docs": "jsdoc -r src"
+  },
+  "author": "Jo Bovy",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/register": "^7.10.5",
+    "babel-plugin-istanbul": "^6.0.0",
+    "chai": "^4.2.0",
+    "cross-env": "^7.0.2",
+    "mathjs": "^7.1.0",
+    "mocha": "^8.0.1",
+    "nyc": "^15.1.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  }
+}
