@@ -1,4 +1,5 @@
-import { Potential, call, Rforce, zforce, phiforce } from './potential'
+import { Potential, call, Rforce, zforce, phiforce,
+	 xforce, yforce, rectforce } from './potential'
 import { MiyamotoNagaiPotential } from './miyamotonagai'
 import { IsochronePotential } from './isochrone'
 
@@ -7,6 +8,9 @@ export default {
     Rforce: Rforce,
     zforce: zforce,
     phiforce: phiforce,
+    xforce: xforce,
+    yforce: yforce,
+    rectforce: rectforce,
     Potential: Potential,
     MiyamotoNagaiPotential: MiyamotoNagaiPotential,
     IsochronePotential: IsochronePotential

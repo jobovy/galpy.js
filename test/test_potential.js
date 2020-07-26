@@ -15,8 +15,9 @@ let pots= [
     new potential.MiyamotoNagaiPotential(),
     new potential.IsochronePotential()
 ];
-let default_tol= 1e-8
+let default_tol= 1e-8;
 let special_tol= {
+    'MiyamotoNagaiPotential': 1e-7,
     'IsochronePotential': 1e-7
 }
 
@@ -24,6 +25,7 @@ pots.forEach(pot => {
     describe(`${pot.constructor.name} potential`, function () {
 	let RphiZt= [1.2,0.3,-0.4,0.];
 	let [R,phi,Z,t]= RphiZt;
+	let xyzt= [R*Math.cos(phi),R*Math.sin(phi),Z,t];
 	let tol= (`${pot.constructor.name}` in special_tol)
 	    ? special_tol[`${pot.constructor.name}`]
 	    : default_tol;
@@ -47,6 +49,45 @@ pots.forEach(pot => {
 						  RphiZt,1e-8,2)),
 			   tol,
 			   `${pot.constructor.name} zforce is not the derivative of the potential wrt z`);
+	});
+	it('xforce = minus d Pot / d x', function () {
+	    assert.isBelow(Math.abs(potential.xforce(pot,R,Z,phi,t)
+				    +pot_gradient((p,x,z,y,t) => potential.call(p,Math.sqrt(x*x+y*y),z,Math.atan2(y,x),t),
+						  pot,
+						  xyzt,1e-8,0)),
+			   tol,
+			   `${pot.constructor.name} xforce is not the derivative of the potential wrt x`);
+	});
+	it('yforce = minus d Pot / d y', function () {
+	    assert.isBelow(Math.abs(potential.yforce(pot,R,Z,phi,t)
+				    +pot_gradient((p,x,z,y,t) => potential.call(p,Math.sqrt(x*x+y*y),z,Math.atan2(y,x),t),
+						  pot,
+						  xyzt,1e-8,1)),
+			   tol,
+			   `${pot.constructor.name} yforce is not the derivative of the potential wrt y`);
+	});
+	it('rectforce[0] = minus d Pot / d x', function () {
+	    assert.isBelow(Math.abs(potential.rectforce(pot,R,Z,phi,t)[0]
+				    +pot_gradient((p,x,z,y,t) => potential.call(p,Math.sqrt(x*x+y*y),z,Math.atan2(y,x),t),
+						  pot,
+						  xyzt,1e-8,0)),
+			   tol,
+			   `${pot.constructor.name} rectforce[0] is not the derivative of the potential wrt x`);
+	});
+	it('rectforce[1] = minus d Pot / d y', function () {
+	    assert.isBelow(Math.abs(potential.rectforce(pot,R,Z,phi,t)[1]
+				    +pot_gradient((p,x,z,y,t) => potential.call(p,Math.sqrt(x*x+y*y),z,Math.atan2(y,x),t),
+						  pot,
+						  xyzt,1e-8,1)),
+			   tol,
+			   `${pot.constructor.name} rectforce[1] is not the derivative of the potential wrt y`);
+	});
+	it('rectforce[2] = minus d Pot / d z', function () {
+	    assert.isBelow(Math.abs(potential.rectforce(pot,R,Z,phi,t)[2]
+				    +pot_gradient(potential.call,pot,
+						  RphiZt,1e-8,2)),
+			   tol,
+			   `${pot.constructor.name} rectforce[2] is not the derivative of the potential wrt z`);
 	});
     });
 });
