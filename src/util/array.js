@@ -1,5 +1,5 @@
 /* 
- * numarray.js: Class and routines to deal with numerical arrays
+ * array.js: Class and routines to deal with numerical arrays
  */
 /**
  * Class representing an array with numerical methods
