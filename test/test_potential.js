@@ -8,10 +8,27 @@ let expect= chai.expect;
 import { potential } from '../src/index'
 
 /*
+ * Test that normalizing the potential works
+ */
+let pots= [
+    new potential.MiyamotoNagaiPotential(),
+    new potential.IsochronePotential()
+];
+let norms= [1.,0.4,1.4];
+
+pots.forEach(pot => {
+    describe(`${pot.constructor.name} potential`, function () {
+	it('Rforce = minus d Pot / d R', function () {
+	    norms.forEach(norm => assert.approximately(pot.normalize(norm).Rforce(1.,0.),-norm,1e-8,`Potential.normalize does not work as expected for ${pot.constructor.name}`));
+	});
+    });
+});
+
+/*
  * Test that derivatives of the potential agree with numerical 
  * derivatives
  */
-let pots= [
+pots= [
     new potential.MiyamotoNagaiPotential(),
     new potential.IsochronePotential()
 ];

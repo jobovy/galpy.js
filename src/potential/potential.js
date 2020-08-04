@@ -2,6 +2,7 @@
  * potential.js: General potential class and functions to deal with
  *               potentials
  */
+import { default as array } from '../util/array'
 /**
  * General class representing a gravitational potential
  */
@@ -16,6 +17,16 @@ class Potential {
 	this._amp= amp;
 	this._ro= ro;
 	this._vo= vo;
+    }
+
+    /**
+     * Normalize the potential such that Rforce(1.,0.) = -norm
+     * @param {number} R - Cylindrical Galactocentric radius
+     * @ return {object} the updated potential instance
+     */
+    normalize(norm) {
+	this._amp*= -norm/this.Rforce(1.,0.);
+	return this;
     }
 
     /**
@@ -150,11 +161,11 @@ function yforce(Pot,R,z,phi=null,t=0.) {
  * @return {Array} 3D rectangular force
  */
 function rectforce(Pot,R,z,phi=null,t=0.) {
-    return [
+    return array.array.from([
 	xforce(Pot,R,z,phi,t),
 	yforce(Pot,R,z,phi,t),
 	zforce(Pot,R,z,phi,t)
-	];
+    ]);
 }
 
 export {
