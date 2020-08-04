@@ -8,5 +8,8 @@ module.exports = {
     library: 'galpy',
     libraryTarget: 'umd',
     globalObject: 'this'
+  },
+  externals: {
+      plotly: 'Plotly'
   }
 }
