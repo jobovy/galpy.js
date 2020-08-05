@@ -19,5 +19,6 @@ jobs:
         run: |
           npm i -g serve
           serve -l 8080 &
+      - run: npm run coverage-lcov
       - run: npm run cypress:coverage
       - uses: codecov/codecov-action@v1
