@@ -12,7 +12,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - run: npm install
+      - run: |
+          npm install
+          npm run develop
       - name: Start local server
         run: |
           npm i -g serve
