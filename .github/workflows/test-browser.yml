@@ -1,4 +1,4 @@
-name: Integration tests in the browser
+name: Browser tests
 
 on: [push, pull_request]
 
