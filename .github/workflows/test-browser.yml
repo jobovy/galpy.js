@@ -1,4 +1,4 @@
-name: Integration tests in the browser
+name: Browser tests
 
 on: [push, pull_request]
 
@@ -19,5 +19,6 @@ jobs:
         run: |
           npm i -g serve
           serve -l 8080 &
+      - run: npm run coverage-lcov
       - run: npm run cypress:coverage
       - uses: codecov/codecov-action@v1
