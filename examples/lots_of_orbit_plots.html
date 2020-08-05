@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Different orbit projections</title>
+    <!-- We load jQuery just for displaying the script used to generate the plot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- We load Mathjax for typesetting math in the galpy plot -->
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <!-- We need to load Plotly to make plots as an external library -->
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <!-- Finally, we load galpy.js; replace with a CDN or local URL -->
+    <script src="../dist/galpy.js"></script>
+    <!-- The following is some simple styling of the javascript code shown on the page -->
+    <style>
+      .scriptblock {
+	  border: black;
+	  border-style: groove;
+	  background: #e6e6e6;
+	  display: inline-block;
+      }
+
+      .code {
+	  font-family: Courier New, Courier, monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Different orbit projections in <span class="code">galpy.js</span></h1>
+    <!-- 
+	 R vs z
+	          -->
+    <!-- The following div just shows the script -->
+    <div class="scriptblock code"><p id="script-div-Rz"></p></div>
+    <!-- The next div will hold the orbit plot -->
+    <div id="galpy-orbit-graph-Rz" style="width:600px;height:400px;"></div>
+    <!-- The following script computes a simple orbit and plots it -->
+    <script id="simple-orbit-script-Rz">
+      let ip= new galpy.potential.IsochronePotential(b=2.).normalize(1.);
+      let o= new galpy.orbit.Orbit([1.,0.1,1.1,0.1,0.,0.]);
+      o.integrate([0.,100.,101],ip,rtol=1.49012e-6,atol=1.49012e-6);
+      o.plot('galpy-orbit-graph-Rz');
+    </script>
+    <!-- The next script copies the above script to be displayed on the generated HTML page -->
+    <script>
+      let scriptContent= $('#simple-orbit-script-Rz').html();
+      scriptContent= scriptContent.substring(1,scriptContent.length-2).replace(/\n/g, "<br/>");
+      $('#script-div-Rz').html(scriptContent);
+      </script>
+
+    <!-- 
+	 E vs t
+	          -->
+    <!-- The following div just shows the script -->
+    <div class="scriptblock code"><p id="script-div-Et"></p></div>
+    <!-- The next div will hold the orbit plot -->
+    <div id="galpy-orbit-graph-Et" style="width:600px;height:400px;"></div>
+    <!-- The following script computes a simple orbit and plots it -->
+    <script id="simple-orbit-script-Et">
+      o.plot('galpy-orbit-graph-Et',{'d1':'t','d2':'E'});
+    </script>
+    <!-- The next script copies the above script to be displayed on the generated HTML page -->
+    <script>
+      scriptContent= $('#simple-orbit-script-Et').html();
+      scriptContent= scriptContent.substring(1,scriptContent.length-2).replace(/\n/g, "<br/>");
+      $('#script-div-Et').html(scriptContent);
+      </script>
+
+
+    <!-- 
+	 Enorm vs t
+	            -->
+    <!-- The following div just shows the script -->
+    <div class="scriptblock code"><p id="script-div-Enormt"></p></div>
+    <!-- The next div will hold the orbit plot -->
+    <div id="galpy-orbit-graph-Enormt" style="width:600px;height:400px;"></div>
+    <!-- The following script computes a simple orbit and plots it -->
+    <script id="simple-orbit-script-Enormt">
+      o.plot('galpy-orbit-graph-Enormt',{'d1':'t','d2':'Enorm'});
+    </script>
+    <!-- The next script copies the above script to be displayed on the generated HTML page -->
+    <script>
+      scriptContent= $('#simple-orbit-script-Enormt').html();
+      scriptContent= scriptContent.substring(1,scriptContent.length-2).replace(/\n/g, "<br/>");
+      $('#script-div-Enormt').html(scriptContent);
+      </script>
+</body>
+</html>
