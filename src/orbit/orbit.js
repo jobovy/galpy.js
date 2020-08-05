@@ -102,10 +102,14 @@ class Orbit {
 	    out= this._z;
 	    out_label= '$z$';
 	    break;
+	case 'E':
+	    out= this.E(true);
+	    out_label= '$E$';
+	    break;
 	case 'Enorm':
 	    out= this.E(true);
 	    out= out.mult(1./out.mean());
-	    out_label= '$E/\langle E \rangle$';
+	    out_label= '$E/\\langle E\\rangle$';
 	    break;
 	}
 	return [out,out_label];
