@@ -7,7 +7,8 @@ var config = {
     filename: 'galpy.js',
     library: 'galpy',
     libraryTarget: 'umd',
-    globalObject: 'this'
+    globalObject: 'this',
+    umdNamedDefine: true
   },
   externals: {
       plotly: 'Plotly'
