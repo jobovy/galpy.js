@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Simple orbit plot</title>
+    <title>Restyling an orbit</title>
     <!-- We load jQuery just for displaying the script used to generate the plot -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- We load Mathjax for typesetting math in the galpy plot -->
@@ -26,21 +26,44 @@
     </style>
   </head>
   <body>
-    <h1>A simple orbit plot with <span class="code">galpy.js</span></h1>
+    <h1>Restyling an orbit with <span class="code">galpy.js</span></h1>
     <!-- The following div just shows the script -->
     <div class="scriptblock code"><p id="script-div"></p></div>
-    <!-- The next div will hold the orbit plot -->
-    <div id="galpy-orbit-graph" style="width:600px;height:400px;"></div>
+    <div style="width:600px;">
+      <!-- The next div will hold the orbit plot -->
+      <div id="galpy-orbit-graph" style="width:600px;height:400px;"></div>
+      <!-- The next div displays the value of b -->
+      <div style="width:50%;margin: 0 auto;">
+	<p style="text-align:center;">b=
+	  <span id="bvalue-galpy-orbit-graph">0.2</span>
+	</p>
+      </div>
+      <!-- The next div holds a button that will restyle the orbit -->
+      <div style="width:50%;margin: 0 auto; text-align: center;">
+	<button id="change-b-btn" onclick="change_b()">Change the isochrone's b!</button>
+      </div>
+    </div>
     <!-- The following script computes a simple orbit and plots it -->
-    <script id="simple-orbit-script">
-      let ip= new galpy.potential.IsochronePotential(amp=1.,b=2.).normalize(1.);
+    <script id="orbit-restyle-script">
+      let b= 0.2;
+      let ip= new galpy.potential.IsochronePotential(amp=1.,b=b).normalize(1.);
       let o= new galpy.orbit.Orbit([1.,0.1,1.1,0.1,0.,0.]);
       o.integrate([0.,100.,101],ip,rtol=1.49012e-6,atol=1.49012e-6);
-      o.plot('galpy-orbit-graph');
+      o.plot('galpy-orbit-graph',{'d1':'x','d2':'y'});
+      let outputb= document.getElementById("bvalue-galpy-orbit-graph");
+      outputb.innerHTML = (Math.round(10*b)/10.).toFixed(1);
+      function change_b() {
+	  b= Math.random()*10.;
+	  ip= new galpy.potential.IsochronePotential(amp=1.,b=b).normalize(1.);
+	  o.integrate([0.,100.,101],ip,rtol=1.49012e-6,atol=1.49012e-6);
+	  o.plot('',{'restyle':true,'restyle-traceIndex':0,
+		     'd1':'x','d2':'y'});
+	  outputb.innerHTML = (Math.round(10*b)/10.).toFixed(1);
+      }
     </script>
     <!-- The next script copies the above script to be displayed on the generated HTML page -->
     <script>
-      let scriptContent= $('#simple-orbit-script').html();
+      let scriptContent= $('#orbit-restyle-script').html();
       scriptContent= scriptContent.substring(1,scriptContent.length-2).replace(/\n/g, "<br/>");
       $('#script-div').html(scriptContent);
       </script>

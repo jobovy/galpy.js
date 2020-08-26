@@ -36,7 +36,7 @@
     <div id="galpy-orbit-graph-Rz" style="width:600px;height:400px;"></div>
     <!-- The following script computes a simple orbit and plots it -->
     <script id="simple-orbit-script-Rz">
-      let ip= new galpy.potential.IsochronePotential(b=2.).normalize(1.);
+      let ip= new galpy.potential.IsochronePotential(amp=1.,b=2.).normalize(1.);
       let o= new galpy.orbit.Orbit([1.,0.1,1.1,0.1,0.,0.]);
       o.integrate([0.,100.,101],ip,rtol=1.49012e-6,atol=1.49012e-6);
       o.plot('galpy-orbit-graph-Rz');
@@ -46,6 +46,24 @@
       let scriptContent= $('#simple-orbit-script-Rz').html();
       scriptContent= scriptContent.substring(1,scriptContent.length-2).replace(/\n/g, "<br/>");
       $('#script-div-Rz').html(scriptContent);
+      </script>
+
+    <!-- 
+	 x vs y
+	          -->
+    <!-- The following div just shows the script -->
+    <div class="scriptblock code"><p id="script-div-xy"></p></div>
+    <!-- The next div will hold the orbit plot -->
+    <div id="galpy-orbit-graph-xy" style="width:600px;height:400px;"></div>
+    <!-- The following script computes a simple orbit and plots it -->
+    <script id="simple-orbit-script-xy">
+      o.plot('galpy-orbit-graph-xy',{'d1':'x','d2':'y'});
+    </script>
+    <!-- The next script copies the above script to be displayed on the generated HTML page -->
+    <script>
+      scriptContent= $('#simple-orbit-script-xy').html();
+      scriptContent= scriptContent.substring(1,scriptContent.length-2).replace(/\n/g, "<br/>");
+      $('#script-div-xy').html(scriptContent);
       </script>
 
     <!-- 

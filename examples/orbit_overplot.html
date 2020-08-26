@@ -33,7 +33,7 @@
     <div id="galpy-orbit-graph" style="width:600px;height:400px;"></div>
     <!-- The following script computes a simple orbit and plots it -->
     <script id="orbit-overplot-script">
-      let ip= new galpy.potential.IsochronePotential(b=2.).normalize(1.);
+      let ip= new galpy.potential.IsochronePotential(amp=1.,b=2.).normalize(1.);
       let o1= new galpy.orbit.Orbit([1.,0.1,1.1,0.1,0.,0.]);
       o1.integrate([0.,100.,101],ip,rtol=1.49012e-6,atol=1.49012e-6);
       o1.plot('galpy-orbit-graph');
