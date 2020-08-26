@@ -102,6 +102,14 @@ class Orbit {
 	    out= this._z;
 	    out_label= '$z$';
 	    break;
+	case 'x':
+	    out= this._R.mult(this._phi.cos());
+	    out_label= '$x$';
+	    break;
+	case 'y':
+	    out= this._R.mult(this._phi.sin());
+	    out_label= '$y$';
+	    break;
 	case 'E':
 	    out= this.E(true);
 	    out_label= '$E$';
