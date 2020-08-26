@@ -129,7 +129,9 @@ class Orbit {
      * @param {object} options - object with option keys
      *                  'd1': ('R') quantity to plot on the x axis
      *                  'd2': ('z') quantity to plot on the y axis
-     *                  'overplot': (false) if true, add overplot on the current plot at graphDiv (in this case, you can also pass graphDiv as null or an empty string)
+     *                  'overplot': (false) if true, overplot on the current plot at graphDiv (in this case, you can also pass graphDiv as null or an empty string)
+     *                  'restyle': (false) if true, update the current plot at graphDiv using Plotly.restyle, replacing the existing trace with idnex restyle-traceIndex (again, you can pass graphDiv as null or an empty string)
+     *                  'restyle-traceIndex': index of the trace to restyle (you'll have to count yourself)
      */
     plot (graphDiv,
 	  options) {
@@ -141,6 +143,8 @@ class Orbit {
 	    'd1': 'R',
 	    'd2': 'z',
 	    'overplot': false,
+	    'restyle': false,
+	    'restyle-traceIndex': 0,
 	};
 	options= {...default_options,...options};
 	let [x,xlabel]= this._parse_plot_quantity(options['d1']);
@@ -177,6 +181,14 @@ class Orbit {
 	    margin: {t: 20,
 		     b: 40,},
 	};
+	if ( options['restyle'] ) {
+	    if ( !graphDiv )
+		graphDiv= window._galpy_plot_current_graphDiv;
+	    Plotly.restyle(graphDiv,
+			   {x: [x], 
+			    y: [y]},
+			   options['restyle-traceIndex']);
+	}
 	let plotFunc;
 	if ( options['overplot'] ) {
 	    if ( !graphDiv )
