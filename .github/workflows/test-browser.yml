@@ -21,6 +21,6 @@ jobs:
           serve -l 8080 &
       - run: npm run coverage-lcov
       - run: npm run cypress:coverage
-      - uses: codecov/codecov-action@v4
+      - uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
